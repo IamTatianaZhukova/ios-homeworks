@@ -18,10 +18,20 @@ class ProfileViewController: UIViewController {
         thePhoto.layer.borderWidth = 3.0
         thePhoto.layer.borderColor = UIColor.white.cgColor
         thePhoto.layer.cornerRadius = 75
-        thePhoto.clipsToBounds = true
 
         return thePhoto
         }()
+
+    let name: UILabel = {
+        let theName = UILabel()
+        theName.translatesAutoresizingMaskIntoConstraints = false
+        theName.text = "Alina Alinovna"
+        theName.textColor = UIColor.black
+        theName.adjustsFontSizeToFitWidth = true
+        theName.font = UIFont(name: "HelveticaNeue-Bold", size: 19.0)
+
+        return theName
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,6 +46,11 @@ class ProfileViewController: UIViewController {
         profilePhoto.heightAnchor.constraint(equalToConstant: 150).isActive = true
         profilePhoto.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16.0).isActive = true
         profilePhoto.topAnchor.constraint(equalTo: view.topAnchor, constant: 106.0).isActive = true
+
+        view.addSubview(name)
+
+        name.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 180.0).isActive = true
+        name.topAnchor.constraint(equalTo: view.topAnchor, constant: 117.0).isActive = true
 
     }
 
