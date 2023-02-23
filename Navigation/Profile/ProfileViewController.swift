@@ -11,12 +11,31 @@ class ProfileViewController: UIViewController {
 
     let profileHeaderView = ProfileHeaderView()
 
+    let profilePhoto: UIImageView = {
+        let thePhoto = UIImageView()
+        thePhoto.translatesAutoresizingMaskIntoConstraints = false
+        thePhoto.image = UIImage(named: "ProfilePhoto")
+        thePhoto.layer.borderWidth = 3.0
+        thePhoto.layer.borderColor = UIColor.white.cgColor
+        thePhoto.layer.cornerRadius = 75
+        thePhoto.clipsToBounds = true
+
+        return thePhoto
+        }()
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         view.backgroundColor = .lightGray
 
         title = "Profile"
+
+        view.addSubview(profilePhoto)
+
+        profilePhoto.widthAnchor.constraint(equalToConstant: 150).isActive = true
+        profilePhoto.heightAnchor.constraint(equalToConstant: 150).isActive = true
+        profilePhoto.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16.0).isActive = true
+        profilePhoto.topAnchor.constraint(equalTo: view.topAnchor, constant: 106.0).isActive = true
 
     }
 
@@ -32,6 +51,7 @@ class ProfileViewController: UIViewController {
         )
 
         view.addSubview(profileHeaderView)
+
     }
 
 }
