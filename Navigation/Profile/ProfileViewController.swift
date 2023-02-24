@@ -49,6 +49,17 @@ class ProfileViewController: UIViewController {
         return statusButton
     }()
 
+    let status: UILabel = {
+        let theStatus = UILabel()
+        theStatus.translatesAutoresizingMaskIntoConstraints = false
+        theStatus.text = "Waiting for something..."
+        theStatus.textColor = UIColor.systemGray
+        theStatus.adjustsFontSizeToFitWidth = true
+        theStatus.font = UIFont(name: "HelveticaNeue-Regular", size: 14.0)
+
+        return theStatus
+    }()
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -81,6 +92,11 @@ class ProfileViewController: UIViewController {
         showStatusButton.layer.shadowRadius = 4.0
         showStatusButton.layer.shadowColor = UIColor.black.cgColor
         showStatusButton.layer.shadowOpacity = 0.7
+
+        view.addSubview(status)
+
+        status.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 180.0).isActive = true
+        status.topAnchor.constraint(equalTo: showStatusButton.topAnchor, constant: -59.0).isActive = true
 
     }
 
