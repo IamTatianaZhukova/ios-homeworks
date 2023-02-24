@@ -22,7 +22,7 @@ class ProfileViewController: UIViewController {
         return thePhoto
         }()
 
-    let name: UILabel = {
+    let nameLabel: UILabel = {
         let theName = UILabel()
         theName.translatesAutoresizingMaskIntoConstraints = false
         theName.text = "Alina Alinovna"
@@ -49,7 +49,7 @@ class ProfileViewController: UIViewController {
         return statusButton
     }()
 
-    let status: UILabel = {
+    let statusLabel: UILabel = {
         let theStatus = UILabel()
         theStatus.translatesAutoresizingMaskIntoConstraints = false
         theStatus.text = "Waiting for something..."
@@ -74,10 +74,10 @@ class ProfileViewController: UIViewController {
         profilePhoto.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16.0).isActive = true
         profilePhoto.topAnchor.constraint(equalTo: view.topAnchor, constant: 106.0).isActive = true
 
-        view.addSubview(name)
+        view.addSubview(nameLabel)
 
-        name.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 180.0).isActive = true
-        name.topAnchor.constraint(equalTo: view.topAnchor, constant: 117.0).isActive = true
+        nameLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 180.0).isActive = true
+        nameLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 117.0).isActive = true
 
         view.addSubview(showStatusButton)
 
@@ -93,10 +93,12 @@ class ProfileViewController: UIViewController {
         showStatusButton.layer.shadowColor = UIColor.black.cgColor
         showStatusButton.layer.shadowOpacity = 0.7
 
-        view.addSubview(status)
+        showStatusButton.addTarget(self, action: #selector(buttonPressed(_:)), for: .touchUpInside)
 
-        status.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 180.0).isActive = true
-        status.topAnchor.constraint(equalTo: showStatusButton.topAnchor, constant: -59.0).isActive = true
+        view.addSubview(statusLabel)
+
+        statusLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 180.0).isActive = true
+        statusLabel.topAnchor.constraint(equalTo: showStatusButton.topAnchor, constant: -59.0).isActive = true
 
     }
 
@@ -113,6 +115,11 @@ class ProfileViewController: UIViewController {
 
         view.addSubview(profileHeaderView)
 
+    }
+
+    @objc func buttonPressed(_ sender: UIButton) {
+        guard let statusText = statusLabel.text else { return }
+                print("Status text: \(statusText)")
     }
 
 }
