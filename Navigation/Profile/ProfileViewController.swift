@@ -33,6 +33,22 @@ class ProfileViewController: UIViewController {
         return theName
     }()
 
+    private lazy var showStatusButton: UIButton = {
+        let statusButton = UIButton()
+        statusButton.translatesAutoresizingMaskIntoConstraints = false
+        statusButton.setTitle("Show status", for: .normal)
+        statusButton.setTitleColor(.white, for: .normal)
+        statusButton.backgroundColor = UIColor.blue
+        statusButton.frame = CGRect(
+            x: 100.0,
+            y: 200.0,
+            width: 200.0,
+            height: 50.0
+        )
+        
+        return statusButton
+    }()
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -51,6 +67,20 @@ class ProfileViewController: UIViewController {
 
         name.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 180.0).isActive = true
         name.topAnchor.constraint(equalTo: view.topAnchor, constant: 117.0).isActive = true
+
+        view.addSubview(showStatusButton)
+
+        showStatusButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16.0).isActive = true
+        showStatusButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16.0).isActive = true
+        showStatusButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        showStatusButton.bottomAnchor.constraint(equalTo: profilePhoto.bottomAnchor, constant: 41.0).isActive = true
+
+        showStatusButton.layer.cornerRadius = 4.0
+
+        showStatusButton.layer.shadowOffset = CGSize(width: 4.0, height: 4.0)
+        showStatusButton.layer.shadowRadius = 4.0
+        showStatusButton.layer.shadowColor = UIColor.black.cgColor
+        showStatusButton.layer.shadowOpacity = 0.7
 
     }
 
