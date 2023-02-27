@@ -70,13 +70,21 @@
 				F698025A299BE2C3001ED7DE /* Assets.xcassets */,
 				F698025C299BE2C3001ED7DE /* LaunchScreen.storyboard */,
 				F698025F299BE2C3001ED7DE /* Info.plist */,
+				F698027529ACF7A4001ED7DE /* Controllers */,
+			);
+			path = Navigation;
+			sourceTree = "<group>";
+		};
+		F698027529ACF7A4001ED7DE /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
 				F6980265299BF4B6001ED7DE /* FeedViewController.swift */,
 				F6980267299BF4D5001ED7DE /* ProfileViewController.swift */,
 				F6980269299D37C0001ED7DE /* PostViewController.swift */,
 				F698026D299E9476001ED7DE /* InfoViewController.swift */,
 				F698026B299D3975001ED7DE /* Post.swift */,
 			);
-			path = Navigation;
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

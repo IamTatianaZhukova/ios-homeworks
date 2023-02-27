@@ -27,11 +27,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let profileNavigationContoller = UINavigationController(rootViewController: profileViewController)
         profileNavigationContoller.tabBarItem = UITabBarItem(title: "Профиль", image: UIImage(systemName: "person"), tag: 1)
 
-        let postNavigationController = UINavigationController(rootViewController: postViewController)
-        postNavigationController.tabBarItem = UITabBarItem(title: "Пост", image: UIImage(systemName: "doc.text.image"), tag: 2)
-
         let tabBarController = UITabBarController()
-        tabBarController.viewControllers = [feedNavigationController, profileNavigationContoller, postNavigationController]
+        tabBarController.viewControllers = [feedNavigationController, profileNavigationContoller]
         tabBarController.tabBar.backgroundColor = UIColor.lightGray
 
         tabBarController.selectedIndex = 1
