@@ -19,7 +19,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         let feedViewController = FeedViewController()
         let profileViewController = ProfileViewController()
-        let postViewController = PostViewController()
 
         let feedNavigationController = UINavigationController(rootViewController: feedViewController)
         feedNavigationController.tabBarItem = UITabBarItem(title: "Новости", image: UIImage(systemName: "books.vertical"), tag: 0)
