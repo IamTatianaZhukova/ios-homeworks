@@ -24,6 +24,12 @@ class FeedViewController: UIViewController {
 
         view.addSubview(actionButton)
 
+        setupConstraints()
+
+        actionButton.addTarget(self, action: #selector(buttonPressed(_:)), for: .touchUpInside)
+    }
+
+    private func setupConstraints() {
         let safeAreaLayoutGuide = view.safeAreaLayoutGuide
         NSLayoutConstraint.activate([
             actionButton.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 20.0),
@@ -31,8 +37,6 @@ class FeedViewController: UIViewController {
             actionButton.centerYAnchor.constraint(equalTo: safeAreaLayoutGuide.centerYAnchor),
             actionButton.heightAnchor.constraint(equalToConstant: 44.0)
         ])
-
-        actionButton.addTarget(self, action: #selector(buttonPressed(_:)), for: .touchUpInside)
     }
 
     @objc func buttonPressed(_ sender: UIButton) {

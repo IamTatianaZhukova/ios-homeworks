@@ -68,38 +68,39 @@ class ProfileViewController: UIViewController {
         title = "Profile"
 
         view.addSubview(profilePhoto)
-
-        profilePhoto.widthAnchor.constraint(equalToConstant: 150).isActive = true
-        profilePhoto.heightAnchor.constraint(equalToConstant: 150).isActive = true
-        profilePhoto.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16.0).isActive = true
-        profilePhoto.topAnchor.constraint(equalTo: view.topAnchor, constant: 106.0).isActive = true
-
         view.addSubview(nameLabel)
-
-        nameLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 180.0).isActive = true
-        nameLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 117.0).isActive = true
-
         view.addSubview(showStatusButton)
 
-        showStatusButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16.0).isActive = true
-        showStatusButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16.0).isActive = true
-        showStatusButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        showStatusButton.bottomAnchor.constraint(equalTo: profilePhoto.bottomAnchor, constant: 41.0).isActive = true
-
         showStatusButton.layer.cornerRadius = 4.0
-
         showStatusButton.layer.shadowOffset = CGSize(width: 4.0, height: 4.0)
         showStatusButton.layer.shadowRadius = 4.0
         showStatusButton.layer.shadowColor = UIColor.black.cgColor
         showStatusButton.layer.shadowOpacity = 0.7
-
         showStatusButton.addTarget(self, action: #selector(buttonPressed(_:)), for: .touchUpInside)
 
         view.addSubview(statusLabel)
 
-        statusLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 180.0).isActive = true
-        statusLabel.topAnchor.constraint(equalTo: showStatusButton.topAnchor, constant: -59.0).isActive = true
+        setupConstraints()
+    }
 
+    private func setupConstraints() {
+        NSLayoutConstraint.activate([
+            profilePhoto.widthAnchor.constraint(equalToConstant: 150),
+            profilePhoto.heightAnchor.constraint(equalToConstant: 150),
+            profilePhoto.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16.0),
+            profilePhoto.topAnchor.constraint(equalTo: view.topAnchor, constant: 106.0),
+
+            nameLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 180.0),
+            nameLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 117.0),
+
+            showStatusButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16.0),
+            showStatusButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16.0),
+            showStatusButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            showStatusButton.bottomAnchor.constraint(equalTo: profilePhoto.bottomAnchor, constant: 41.0),
+
+            statusLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 180.0),
+            statusLabel.topAnchor.constraint(equalTo: showStatusButton.topAnchor, constant: -59.0)
+        ])
     }
 
     override func viewWillLayoutSubviews() {
