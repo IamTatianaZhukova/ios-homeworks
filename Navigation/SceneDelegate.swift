@@ -11,35 +11,29 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
 
+       func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+           guard let scene = (scene as? UIWindowScene) else { return }
 
-    func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        guard let scene = (scene as? UIWindowScene) else { return }
+           let window = UIWindow(windowScene: scene)
 
-        let window = UIWindow(windowScene: scene)
+           let feedViewController = FeedViewController()
+           let profileViewController = ProfileViewController()
 
-        let feedViewController = FeedViewController()
-        let profileViewController = ProfileViewController()
-        let postViewController = PostViewController()
+           let feedNavigationController = UINavigationController(rootViewController: feedViewController)
+           feedNavigationController.tabBarItem = UITabBarItem(title: "Новости", image: UIImage(systemName: "books.vertical"), tag: 0)
 
-        let feedNavigationController = UINavigationController(rootViewController: feedViewController)
-        feedNavigationController.tabBarItem = UITabBarItem(title: "Новости", image: UIImage(systemName: "books.vertical"), tag: 0)
+           let profileNavigationContoller = UINavigationController(rootViewController: profileViewController)
+           profileNavigationContoller.tabBarItem = UITabBarItem(title: "Профиль", image: UIImage(systemName: "person"), tag: 1)
 
-        let profileNavigationContoller = UINavigationController(rootViewController: profileViewController)
-        profileNavigationContoller.tabBarItem = UITabBarItem(title: "Профиль", image: UIImage(systemName: "person"), tag: 1)
+           let tabBarController = UITabBarController()
+           tabBarController.viewControllers = [feedNavigationController, profileNavigationContoller]
+           tabBarController.tabBar.backgroundColor = UIColor.lightGray
 
-        let postNavigationController = UINavigationController(rootViewController: postViewController)
-        postNavigationController.tabBarItem = UITabBarItem(title: "Пост", image: UIImage(systemName: "doc.text.image"), tag: 2)
+           tabBarController.selectedIndex = 1
 
-        let tabBarController = UITabBarController()
-        tabBarController.viewControllers = [feedNavigationController, profileNavigationContoller, postNavigationController]
-        tabBarController.tabBar.backgroundColor = UIColor.lightGray
-
-        tabBarController.selectedIndex = 1
-
-        window.rootViewController = tabBarController
-        self.window = window
-        window.makeKeyAndVisible()
-
+           window.rootViewController = tabBarController
+           self.window = window
+           window.makeKeyAndVisible()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
