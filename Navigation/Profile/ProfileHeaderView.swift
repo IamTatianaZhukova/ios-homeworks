@@ -47,7 +47,7 @@ class ProfileHeaderView: UIView {
     private lazy var setStatusButton: UIButton = {
         let setStatus = UIButton()
         setStatus.translatesAutoresizingMaskIntoConstraints = false
-        setStatus.setTitle("Show status", for: .normal)
+        setStatus.setTitle("Set status", for: .normal)
         setStatus.setTitleColor(.white, for: .normal)
         setStatus.backgroundColor = UIColor.blue
         setStatus.layer.cornerRadius = 4.0
@@ -90,15 +90,20 @@ class ProfileHeaderView: UIView {
             setStatusButton.bottomAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: 66.0),
 
             statusLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 180.0),
-            statusLabel.topAnchor.constraint(equalTo: setStatusButton.topAnchor, constant: -59.0)
+            statusLabel.topAnchor.constraint(equalTo: setStatusButton.topAnchor, constant: -59.0),
+
+            statusTextField.leadingAnchor.constraint(equalTo: statusLabel.leadingAnchor),
+            statusTextField.trailingAnchor.constraint(equalTo: setStatusButton.trailingAnchor, constant: -6),
+            statusTextField.topAnchor.constraint(equalTo: statusLabel.topAnchor, constant: 6)
         ])
 
         setStatusButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        setStatusButton.addTarget(self, action: #selector(buttonPressed(_:)), for: .touchUpInside)
+        setStatusButton.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
     }
 
-    @objc func buttonPressed(_ sender: UIButton) {
-        guard let statusText = statusLabel.text else { return }
-                print("Status text: \(statusText)")
+    @objc func buttonPressed() {
+        guard let newStatusText = statusTextField.text else { return }
+        statusLabel.text = newStatusText
+        statusTextField.text = ""
     }
 }
