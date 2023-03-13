@@ -51,9 +51,4 @@ class ProfileViewController: UIViewController {
         ])
     }
 
-    @objc func newButtonPressed() {
-        guard let newStatusText = profileHeaderView.statusTextField.text else { return }
-        profileHeaderView.statusTextField.text = newStatusText
-        profileHeaderView.statusTextField.text = ""
-    }
 }
