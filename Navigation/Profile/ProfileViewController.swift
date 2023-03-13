@@ -31,8 +31,6 @@ class ProfileViewController: UIViewController {
 
         setupConstraints()
 
-        newButton.addTarget(self, action: #selector(newButtonPressed), for: .touchUpInside)
-
     }
 
     private func setupConstraints() {
