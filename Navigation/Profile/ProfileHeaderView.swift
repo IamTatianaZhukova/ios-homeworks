@@ -1,5 +1,25 @@
 import UIKit
 
+
+class TextFieldWithPadding: UITextField {
+    var textPadding = UIEdgeInsets(
+        top: 10,
+        left: 10,
+        bottom: 10,
+        right: 20
+    )
+
+    override func textRect(forBounds bounds: CGRect) -> CGRect {
+        let rect = super.textRect(forBounds: bounds)
+        return rect.inset(by: textPadding)
+    }
+
+    override func editingRect(forBounds bounds: CGRect) -> CGRect {
+        let rect = super.editingRect(forBounds: bounds)
+        return rect.inset(by: textPadding)
+    }
+}
+
 class ProfileHeaderView: UIView {
 
     private let avatarImageView: UIImageView = {
@@ -35,8 +55,8 @@ class ProfileHeaderView: UIView {
         return status
     }()
 
-    var statusTextField: UITextField = {
-        let statusText = UITextField()
+    var statusTextField: TextFieldWithPadding = {
+        let statusText = TextFieldWithPadding()
         statusText.translatesAutoresizingMaskIntoConstraints = false
         statusText.placeholder = "Enter new status"
         statusText.backgroundColor = UIColor.white
