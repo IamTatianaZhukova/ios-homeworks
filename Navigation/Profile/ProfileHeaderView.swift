@@ -110,7 +110,10 @@ class ProfileHeaderView: UIView {
     }
 
     @objc func buttonPressed() {
-        guard let statusText = statusLabel.text else { return }
-                print("Status text: \(statusText)")
+        guard let newStatusText = statusTextField.text else { return }
+        statusLabel.text = newStatusText
+        statusLabel.textColor = UIColor.black
+        statusTextField.text = ""
     }
+
 }
