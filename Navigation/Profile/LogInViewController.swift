@@ -2,6 +2,27 @@ import UIKit
 
 class LogInViewController: UIViewController {
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        setupKeyboardObservers()
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+
+        removeKeyboardObservers()
+    }
+
+    @objc func willShowKeyboard(_ notification: NSNotification) {
+        let keyboardHeight = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.height
+        scrollView.contentInset.bottom += keyboardHeight ?? 0.0
+    }
+
+    @objc func willHideKeyboard(_ notification: NSNotification) {
+        scrollView.contentInset.bottom = 0.0
+    }
+
     private let logoImage: UIImageView = {
         let logo = UIImageView()
         logo.translatesAutoresizingMaskIntoConstraints = false
@@ -21,6 +42,8 @@ class LogInViewController: UIViewController {
         login.placeholder = "Email or phone"
         login.textColor = .black
         login.font = UIFont(name: "systemFont", size: 16)
+        login.keyboardType = UIKeyboardType.default
+        login.returnKeyType = UIReturnKeyType.done
         login.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
 
         return login
@@ -39,6 +62,8 @@ class LogInViewController: UIViewController {
         password.font = UIFont(name: "systemFont", size: 16)
         password.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
         password.isSecureTextEntry = true
+        password.keyboardType = UIKeyboardType.default
+        password.returnKeyType = UIReturnKeyType.done
 
         return password
     }()
@@ -129,7 +154,36 @@ class LogInViewController: UIViewController {
             contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
             contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
         ])
+
+        LogInButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        LogInButton.addTarget(self, action: #selector(logInButtonPressed), for: .touchUpInside)
+    }
+
+    @objc func logInButtonPressed() {
+        let profile = ProfileViewController()
+        navigationController?.pushViewController(profile, animated: true)
+    }
+
+    private func setupKeyboardObservers() {
+        let notificationCenter = NotificationCenter.default
+
+        notificationCenter.addObserver(
+            self,
+            selector: #selector(self.willShowKeyboard(_:)),
+            name: UIResponder.keyboardWillShowNotification,
+            object: nil
+        )
+
+        notificationCenter.addObserver(
+            self,
+            selector: #selector(self.willHideKeyboard(_:)),
+            name: UIResponder.keyboardWillHideNotification,
+            object: nil
+        )
+    }
+
+    private func removeKeyboardObservers() {
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.removeObserver(self)
     }
 }
-
-
