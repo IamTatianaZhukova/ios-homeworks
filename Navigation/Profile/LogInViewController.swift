@@ -25,6 +25,21 @@ class LogInViewController: UIViewController {
         return login
     }()
 
+    private var passwordTextField: TextFieldWithPadding = {
+        var password = TextFieldWithPadding()
+        password.translatesAutoresizingMaskIntoConstraints = false
+        password.backgroundColor = .systemGray6
+        password.tintColor = UIColor(named: "accentColor")
+        password.layer.borderColor = UIColor.lightGray.cgColor
+        password.layer.borderWidth = 0.5
+        password.layer.cornerRadius = 10
+        password.placeholder = "Password"
+        password.textColor = .black
+        password.font = UIFont(name: "systemFont", size: 16)
+
+        return password
+    }()
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -40,6 +55,7 @@ class LogInViewController: UIViewController {
     private func setupConstraints() {
         view.addSubview(logoImage)
         view.addSubview(loginTextField)
+        view.addSubview(passwordTextField)
 
         NSLayoutConstraint.activate([
             logoImage.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 100),
@@ -52,6 +68,10 @@ class LogInViewController: UIViewController {
             loginTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             loginTextField.heightAnchor.constraint(equalToConstant: 50),
 
+            passwordTextField.bottomAnchor.constraint(equalTo: logoImage.bottomAnchor, constant: 120),
+            passwordTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            passwordTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            passwordTextField.heightAnchor.constraint(equalToConstant: 50),
         ])
     }
 }
