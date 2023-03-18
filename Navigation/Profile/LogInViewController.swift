@@ -21,6 +21,7 @@ class LogInViewController: UIViewController {
         login.placeholder = "Email or phone"
         login.textColor = .black
         login.font = UIFont(name: "systemFont", size: 16)
+        login.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
 
         return login
     }()
@@ -36,6 +37,7 @@ class LogInViewController: UIViewController {
         password.placeholder = "Password"
         password.textColor = .black
         password.font = UIFont(name: "systemFont", size: 16)
+        password.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
 
         return password
     }()
@@ -68,7 +70,7 @@ class LogInViewController: UIViewController {
             loginTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             loginTextField.heightAnchor.constraint(equalToConstant: 50),
 
-            passwordTextField.bottomAnchor.constraint(equalTo: logoImage.bottomAnchor, constant: 120),
+            passwordTextField.bottomAnchor.constraint(equalTo: loginTextField.bottomAnchor, constant: 50),
             passwordTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             passwordTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             passwordTextField.heightAnchor.constraint(equalToConstant: 50),
