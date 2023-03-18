@@ -62,6 +62,21 @@ class LogInViewController: UIViewController {
         return logIn
     }()
 
+    private lazy var scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.showsVerticalScrollIndicator = true
+        scrollView.showsHorizontalScrollIndicator = false
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+
+        return scrollView
+    }()
+
+    private lazy var contentView: UIView = {
+        let contentView = UIView()
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        return contentView
+    }()
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -79,6 +94,8 @@ class LogInViewController: UIViewController {
         view.addSubview(loginTextField)
         view.addSubview(passwordTextField)
         view.addSubview(LogInButton)
+        view.addSubview(scrollView)
+        view.addSubview(contentView)
 
         NSLayoutConstraint.activate([
             logoImage.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 100),
@@ -100,6 +117,17 @@ class LogInViewController: UIViewController {
             LogInButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             LogInButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             LogInButton.heightAnchor.constraint(equalToConstant: 50),
+
+            scrollView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            scrollView.topAnchor.constraint(equalTo: LogInButton.bottomAnchor, constant: 16.0),
+            scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+
+            contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+            contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
         ])
     }
 }
