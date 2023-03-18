@@ -8,26 +8,24 @@ class ProfileViewController: UIViewController {
     private lazy var newButton: UIButton = {
         let theNewButton = UIButton()
         theNewButton.translatesAutoresizingMaskIntoConstraints = false
-            theNewButton.setTitle("Change title", for: .normal)
-            theNewButton.setTitleColor(.white, for: .normal)
-            theNewButton.backgroundColor = UIColor.systemGreen
-            theNewButton.layer.cornerRadius = 4.0
-            theNewButton.layer.shadowOffset = CGSize(width: 4.0, height: 4.0)
-            theNewButton.layer.shadowRadius = 4.0
-            theNewButton.layer.shadowColor = UIColor.black.cgColor
-            theNewButton.layer.shadowOpacity = 0.7
+        theNewButton.setTitle("Change title", for: .normal)
+        theNewButton.setTitleColor(.white, for: .normal)
+        theNewButton.backgroundColor = UIColor.systemGreen
+        theNewButton.layer.cornerRadius = 4.0
+        theNewButton.layer.shadowOffset = CGSize(width: 4.0, height: 4.0)
+        theNewButton.layer.shadowRadius = 4.0
+        theNewButton.layer.shadowColor = UIColor.black.cgColor
+        theNewButton.layer.shadowOpacity = 0.7
 
-            return theNewButton
-        }()
+        return theNewButton
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.view.addSubview(profileHeaderView)
         view.backgroundColor = .lightGray
-
         title = "Profile"
-
         profileHeaderView.translatesAutoresizingMaskIntoConstraints = false
 
         setupConstraints()
