@@ -38,8 +38,28 @@ class LogInViewController: UIViewController {
         password.textColor = .black
         password.font = UIFont(name: "systemFont", size: 16)
         password.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+        password.isSecureTextEntry = true
 
         return password
+    }()
+
+    private var LogInButton: UIButton = {
+        var logIn = UIButton()
+        logIn.translatesAutoresizingMaskIntoConstraints = false
+        logIn.layer.cornerRadius = 10
+        logIn.clipsToBounds = true
+        logIn.setTitle("Log In", for: .normal)
+        logIn.setTitleColor(.white, for: .normal)
+        logIn.setBackgroundImage(UIImage(named: "blue_pixel"), for: .normal)
+        logIn.alpha = 1.0
+        logIn.setBackgroundImage(UIImage(named: "blue_pixel"), for: .selected)
+        logIn.alpha = 0.8
+        logIn.setBackgroundImage(UIImage(named: "blue_pixel"), for: .highlighted)
+        logIn.alpha = 0.8
+        logIn.setBackgroundImage(UIImage(named: "blue_pixel"), for: .disabled)
+        logIn.alpha = 0.8
+
+        return logIn
     }()
 
     override func viewDidLoad() {
@@ -58,6 +78,7 @@ class LogInViewController: UIViewController {
         view.addSubview(logoImage)
         view.addSubview(loginTextField)
         view.addSubview(passwordTextField)
+        view.addSubview(LogInButton)
 
         NSLayoutConstraint.activate([
             logoImage.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 100),
@@ -74,6 +95,11 @@ class LogInViewController: UIViewController {
             passwordTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             passwordTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             passwordTextField.heightAnchor.constraint(equalToConstant: 50),
+
+            LogInButton.bottomAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 66),
+            LogInButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            LogInButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            LogInButton.heightAnchor.constraint(equalToConstant: 50),
         ])
     }
 }
