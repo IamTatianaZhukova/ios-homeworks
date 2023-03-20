@@ -34,17 +34,11 @@ class LogInViewController: UIViewController {
     private var loginTextField: TextFieldWithPadding = {
         var login = TextFieldWithPadding()
         login.translatesAutoresizingMaskIntoConstraints = false
-        login.backgroundColor = .systemGray6
-        login.tintColor = UIColor(named: "accentColor")
-        login.layer.borderColor = UIColor.lightGray.cgColor
-        login.layer.borderWidth = 0.5
-        login.layer.cornerRadius = 10
         login.placeholder = "Email or phone"
         login.textColor = .black
         login.font = UIFont(name: "systemFont", size: 16)
         login.keyboardType = UIKeyboardType.default
         login.returnKeyType = UIReturnKeyType.done
-        login.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
 
         return login
     }()
@@ -52,15 +46,9 @@ class LogInViewController: UIViewController {
     private var passwordTextField: TextFieldWithPadding = {
         var password = TextFieldWithPadding()
         password.translatesAutoresizingMaskIntoConstraints = false
-        password.backgroundColor = .systemGray6
-        password.tintColor = UIColor(named: "accentColor")
-        password.layer.borderColor = UIColor.lightGray.cgColor
-        password.layer.borderWidth = 0.5
-        password.layer.cornerRadius = 10
         password.placeholder = "Password"
         password.textColor = .black
         password.font = UIFont(name: "systemFont", size: 16)
-        password.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
         password.isSecureTextEntry = true
         password.keyboardType = UIKeyboardType.default
         password.returnKeyType = UIReturnKeyType.done
@@ -68,7 +56,23 @@ class LogInViewController: UIViewController {
         return password
     }()
 
-    private var LogInButton: UIButton = {
+    private let loginStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.backgroundColor = .systemGray6
+        stackView.tintColor = UIColor(named: "accentColor")
+        stackView.layer.borderColor = UIColor.lightGray.cgColor
+        stackView.layer.borderWidth = 0.5
+        stackView.layer.cornerRadius = 10
+        stackView.axis = .vertical
+        stackView.distribution = .fillEqually
+        stackView.alignment = .fill
+        stackView.spacing = 15
+
+        return stackView
+    }()
+
+    private var logInButton: UIButton = {
         var logIn = UIButton()
         logIn.translatesAutoresizingMaskIntoConstraints = false
         logIn.layer.cornerRadius = 10
@@ -116,11 +120,12 @@ class LogInViewController: UIViewController {
 
     private func setupConstraints() {
         view.addSubview(logoImage)
-        view.addSubview(loginTextField)
-        view.addSubview(passwordTextField)
-        view.addSubview(LogInButton)
+        view.addSubview(logInButton)
         view.addSubview(scrollView)
         view.addSubview(contentView)
+        loginStackView.addArrangedSubview(loginTextField)
+        loginStackView.addArrangedSubview(passwordTextField)
+        view.addSubview(loginStackView)
 
         NSLayoutConstraint.activate([
             logoImage.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 100),
@@ -128,24 +133,19 @@ class LogInViewController: UIViewController {
             logoImage.heightAnchor.constraint(equalToConstant: 100),
             logoImage.widthAnchor.constraint(equalToConstant: 100),
 
-            loginTextField.bottomAnchor.constraint(equalTo: logoImage.bottomAnchor, constant: 120),
-            loginTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            loginTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            loginTextField.heightAnchor.constraint(equalToConstant: 50),
+            loginStackView.bottomAnchor.constraint(equalTo: logoImage.bottomAnchor, constant: 120),
+            loginStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            loginStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            loginStackView.heightAnchor.constraint(equalToConstant: 100),
 
-            passwordTextField.bottomAnchor.constraint(equalTo: loginTextField.bottomAnchor, constant: 50),
-            passwordTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            passwordTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            passwordTextField.heightAnchor.constraint(equalToConstant: 50),
-
-            LogInButton.bottomAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 66),
-            LogInButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            LogInButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            LogInButton.heightAnchor.constraint(equalToConstant: 50),
+            logInButton.bottomAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 66),
+            logInButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            logInButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            logInButton.heightAnchor.constraint(equalToConstant: 50),
 
             scrollView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            scrollView.topAnchor.constraint(equalTo: LogInButton.bottomAnchor, constant: 16.0),
+            scrollView.topAnchor.constraint(equalTo: logInButton.bottomAnchor, constant: 16.0),
             scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
 
             contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
@@ -155,8 +155,8 @@ class LogInViewController: UIViewController {
             contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
         ])
 
-        LogInButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        LogInButton.addTarget(self, action: #selector(logInButtonPressed), for: .touchUpInside)
+        logInButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        logInButton.addTarget(self, action: #selector(logInButtonPressed), for: .touchUpInside)
     }
 
     @objc func logInButtonPressed() {
