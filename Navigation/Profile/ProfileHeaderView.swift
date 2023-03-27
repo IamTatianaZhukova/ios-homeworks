@@ -20,7 +20,7 @@ class TextFieldWithPadding: UITextField {
     }
 }
 
-class ProfileHeaderView: UIView {
+class ProfileHeaderView: UITableViewCell {
 
     private let avatarImageView: UIImageView = {
         let avatarImage = UIImageView()
@@ -83,13 +83,22 @@ class ProfileHeaderView: UIView {
         return setStatus
     }()
 
-    override init(frame: CGRect) {
-            super.init(frame: frame)
-            setupConstraints()
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        addSubviews()
+        setupConstraints()
     }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    func addSubviews() {
+         addSubview(avatarImageView)
+         addSubview(fullNameLabel)
+         addSubview(statusLabel)
+         addSubview(setStatusButton)
+         addSubview(statusTextField)
     }
 
     private func setupConstraints() {
@@ -102,29 +111,29 @@ class ProfileHeaderView: UIView {
         NSLayoutConstraint.activate([
             avatarImageView.widthAnchor.constraint(equalToConstant: 150),
             avatarImageView.heightAnchor.constraint(equalToConstant: 150),
-            avatarImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16.0),
-            avatarImageView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 16.0),
+            avatarImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            avatarImageView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 16),
 
-            fullNameLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 180.0),
-            fullNameLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 27.0),
+            fullNameLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 180),
+            fullNameLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 27),
             fullNameLabel.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -16),
 
-            statusLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 180.0),
-            statusLabel.topAnchor.constraint(equalTo: setStatusButton.topAnchor, constant: -72.0),
+            statusLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 180),
+            statusLabel.topAnchor.constraint(equalTo: setStatusButton.topAnchor, constant: -72),
 
             statusTextField.leadingAnchor.constraint(equalTo: statusLabel.leadingAnchor),
             statusTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
             statusTextField.heightAnchor.constraint(equalToConstant: 40),
             statusTextField.bottomAnchor.constraint(equalTo: setStatusButton.bottomAnchor, constant: -58),
 
-            setStatusButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16.0),
-            setStatusButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16.0),
+            setStatusButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            setStatusButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
             setStatusButton.heightAnchor.constraint(equalToConstant: 50),
-            setStatusButton.bottomAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: 56.0)
+            setStatusButton.bottomAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: 56),
 
+            setStatusButton.heightAnchor.constraint(equalToConstant: 50)
         ])
 
-        setStatusButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
         setStatusButton.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
 
     }
