@@ -102,12 +102,6 @@ class ProfileHeaderView: UITableViewCell {
     }
 
     private func setupConstraints() {
-        addSubview(avatarImageView)
-        addSubview(fullNameLabel)
-        addSubview(setStatusButton)
-        addSubview(statusLabel)
-        addSubview(statusTextField)
-
         NSLayoutConstraint.activate([
             avatarImageView.widthAnchor.constraint(equalToConstant: 150),
             avatarImageView.heightAnchor.constraint(equalToConstant: 150),
@@ -117,6 +111,7 @@ class ProfileHeaderView: UITableViewCell {
             fullNameLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 180),
             fullNameLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 27),
             fullNameLabel.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            fullNameLabel.heightAnchor.constraint(equalToConstant: 30),
 
             statusLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 180),
             statusLabel.topAnchor.constraint(equalTo: setStatusButton.topAnchor, constant: -72),
@@ -130,8 +125,6 @@ class ProfileHeaderView: UITableViewCell {
             setStatusButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
             setStatusButton.heightAnchor.constraint(equalToConstant: 50),
             setStatusButton.bottomAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: 56),
-
-            setStatusButton.heightAnchor.constraint(equalToConstant: 50)
         ])
 
         setStatusButton.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
