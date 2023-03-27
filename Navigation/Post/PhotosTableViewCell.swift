@@ -96,7 +96,7 @@ class PhotosTableViewCell: UITableViewCell {
         addSubview(photosLabel)
         addSubview(arrowImageView)
         addSubview(stackView)
-        [photo1ImageView, photo2ImageView, photo3ImageView, photo4ImageView].forEach {
+        [photo1ImageView, photo2ImageView, photo3ImageView, photo4ImageView, photo5ImageView].forEach {
             stackView.addArrangedSubview($0)
         }
 
@@ -119,13 +119,14 @@ class PhotosTableViewCell: UITableViewCell {
             photo2ImageView.widthAnchor.constraint(equalTo: photo1ImageView.widthAnchor),
             photo2ImageView.heightAnchor.constraint(equalTo: photo1ImageView.heightAnchor),
 
-
             photo3ImageView.widthAnchor.constraint(equalTo: photo1ImageView.widthAnchor),
             photo3ImageView.heightAnchor.constraint(equalTo: photo1ImageView.heightAnchor),
 
             photo4ImageView.widthAnchor.constraint(equalTo: photo1ImageView.widthAnchor),
-            photo4ImageView.heightAnchor.constraint(equalTo: photo1ImageView.heightAnchor)
+            photo4ImageView.heightAnchor.constraint(equalTo: photo1ImageView.heightAnchor),
 
+            photo5ImageView.widthAnchor.constraint(equalTo: photo1ImageView.widthAnchor),
+            photo5ImageView.heightAnchor.constraint(equalTo: photo1ImageView.heightAnchor)
         ])
     }
 
