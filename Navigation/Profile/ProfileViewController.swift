@@ -1,4 +1,3 @@
-
 import UIKit
 
 class ProfileViewController: UIViewController {
@@ -10,8 +9,10 @@ class ProfileViewController: UIViewController {
         return tableView
     }()
 
+    let headerTableView = ProfileTableHeaderView()
+
     private enum CellReuseID: String {
-        case headerCell = "ProfileHeaderView_ReuseID"
+        case headerCell = "ProfileTableHeaderView_ReuseID"
         case postCell = "PostTabelViewCell_ReuseID"
     }
 
@@ -37,14 +38,16 @@ class ProfileViewController: UIViewController {
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+
+            headerTableView.heightAnchor.constraint(equalToConstant: 200)
         ])
     }
 
     func setupTableView() {
         tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = 1000
+        tableView.estimatedRowHeight = 500
 
-        tableView.register(ProfileHeaderView.self, forCellReuseIdentifier: CellReuseID.headerCell.rawValue)
+        tableView.register(ProfileTableHeaderView.self, forCellReuseIdentifier: CellReuseID.headerCell.rawValue)
         tableView.register(PostTableViewCell.self, forCellReuseIdentifier: CellReuseID.postCell.rawValue)
 
         tableView.dataSource = self
@@ -53,23 +56,35 @@ class ProfileViewController: UIViewController {
 }
 
 extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
+
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        if section == 0 {
+            return headerTableView
+
+        } else {
+            return nil
+        }
+    }
+
+    func numberOfSections(in tableView: UITableView) -> Int {
+        2
+    }
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        postProfile.count + 1
+        if section == 0 {
+            return 0
+        } else {
+            return postProfile.count
+        }
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
-        if indexPath.row == 0 {
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: CellReuseID.headerCell.rawValue, for: indexPath) as? ProfileHeaderView else {
-                fatalError("could not dequeueReusableCell \(CellReuseID.headerCell.rawValue)")
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: CellReuseID.postCell.rawValue, for: indexPath) as? PostTableViewCell else {
+                        fatalError("could not dequeueReusableCell \(CellReuseID.postCell.rawValue)")
             }
-            return cell
-        } else {
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: CellReuseID.postCell.rawValue, for: indexPath) as? PostTableViewCell else {
-                fatalError("could not dequeueReusableCell \(CellReuseID.postCell.rawValue)")
-            }
-            cell.configure(with: postProfile[indexPath.row - 1])
-            return cell
-        }
+        cell.configure(with: postProfile[indexPath.row])
+        return cell
     }
+
+
 }

@@ -1,26 +1,6 @@
 import UIKit
 
-
-class TextFieldWithPadding: UITextField {
-    var textPadding = UIEdgeInsets(
-        top: 10,
-        left: 20,
-        bottom: 10,
-        right: 20
-    )
-
-    override func textRect(forBounds bounds: CGRect) -> CGRect {
-        let rect = super.textRect(forBounds: bounds)
-        return rect.inset(by: textPadding)
-    }
-
-    override func editingRect(forBounds bounds: CGRect) -> CGRect {
-        let rect = super.editingRect(forBounds: bounds)
-        return rect.inset(by: textPadding)
-    }
-}
-
-class ProfileHeaderView: UITableViewCell {
+class ProfileHeaderView: UIView {
 
     private let avatarImageView: UIImageView = {
         let avatarImage = UIImageView()
@@ -83,9 +63,9 @@ class ProfileHeaderView: UITableViewCell {
         return setStatus
     }()
 
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        addSubviews()
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupUI()
         setupConstraints()
     }
 
@@ -93,7 +73,7 @@ class ProfileHeaderView: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func addSubviews() {
+    func setupUI() {
          addSubview(avatarImageView)
          addSubview(fullNameLabel)
          addSubview(statusLabel)
@@ -124,7 +104,7 @@ class ProfileHeaderView: UITableViewCell {
             setStatusButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             setStatusButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
             setStatusButton.heightAnchor.constraint(equalToConstant: 50),
-            setStatusButton.bottomAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: 56),
+            setStatusButton.bottomAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: 56)
         ])
 
         setStatusButton.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)

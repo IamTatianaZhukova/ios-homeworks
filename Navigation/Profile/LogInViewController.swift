@@ -155,7 +155,6 @@ class LogInViewController: UIViewController {
             contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
         ])
 
-        logInButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
         logInButton.addTarget(self, action: #selector(logInButtonPressed), for: .touchUpInside)
     }
 
