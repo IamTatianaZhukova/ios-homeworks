@@ -31,15 +31,14 @@ class ProfileViewController: UIViewController {
     }
 
     func configureUI() {
-        let safeArea = self.view.safeAreaLayoutGuide
 
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: safeArea.topAnchor),
+            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
 
-            headerTableView.heightAnchor.constraint(equalToConstant: 200)
+            headerTableView.heightAnchor.constraint(equalToConstant: 250)
         ])
     }
 
@@ -47,8 +46,8 @@ class ProfileViewController: UIViewController {
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 500
 
-        tableView.register(ProfileTableHeaderView.self, forCellReuseIdentifier: CellReuseID.headerCell.rawValue)
         tableView.register(PostTableViewCell.self, forCellReuseIdentifier: CellReuseID.postCell.rawValue)
+        tableView.register(PhotosTableViewCell.self, forCellReuseIdentifier: String(describing: PhotosTableViewCell.self))
 
         tableView.dataSource = self
         tableView.delegate = self
@@ -57,34 +56,46 @@ class ProfileViewController: UIViewController {
 
 extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
 
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        if section == 0 {
-            return headerTableView
-
-        } else {
-            return nil
-        }
-    }
-
     func numberOfSections(in tableView: UITableView) -> Int {
         2
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
-            return 0
+            return 1
         } else {
             return postProfile.count
         }
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: CellReuseID.postCell.rawValue, for: indexPath) as? PostTableViewCell else {
-                        fatalError("could not dequeueReusableCell \(CellReuseID.postCell.rawValue)")
-            }
-        cell.configure(with: postProfile[indexPath.row])
-        return cell
+        if indexPath.section == 0 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: PhotosTableViewCell.self), for: indexPath) as! PhotosTableViewCell
+            return cell
+        } else {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: CellReuseID.postCell.rawValue, for: indexPath) as? PostTableViewCell else {
+                fatalError("could not dequeueReusableCell \(CellReuseID.postCell.rawValue)")
+                }
+            cell.configure(with: postProfile[indexPath.row])
+            return cell
+        }
     }
 
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        if section == 0 {
+            return headerTableView
+        } else {
+            return nil
+        }
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section == 0 {
+            let photo = PhotosViewController()
+            navigationController?.pushViewController(photo, animated: true)
+            navigationController?.navigationBar.isHidden = false
+            photo.title = "Photo Gallery"
+        }
+    }
 
 }

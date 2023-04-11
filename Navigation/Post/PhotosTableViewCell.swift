@@ -16,18 +16,18 @@ class PhotosTableViewCell: UITableViewCell {
     }()
 
     let arrowImageView: UIImageView = {
-        let arrow = UIImageView()
-        arrow.translatesAutoresizingMaskIntoConstraints = false
-        arrow.image = UIImage(systemName: "arrow.right")
-        arrow.tintColor = .black
+        let arrowImage = UIImageView()
+        arrowImage.translatesAutoresizingMaskIntoConstraints = false
+        arrowImage.image = UIImage(systemName: "arrow.right")
+        arrowImage.tintColor = .black
 
-        return arrow
+        return arrowImage
     }()
 
     let photo1ImageView: UIImageView = {
         let photo1 = UIImageView()
         photo1.translatesAutoresizingMaskIntoConstraints = false
-        photo1.image = UIImage(named: "Photo1")
+        photo1.image = UIImage(named: "01")
         photo1.layer.cornerRadius = 6
         photo1.clipsToBounds = true
 
@@ -37,7 +37,7 @@ class PhotosTableViewCell: UITableViewCell {
     let photo2ImageView: UIImageView = {
         let photo2 = UIImageView()
         photo2.translatesAutoresizingMaskIntoConstraints = false
-        photo2.image = UIImage(named: "Photo2")
+        photo2.image = UIImage(named: "02")
         photo2.layer.cornerRadius = 6
         photo2.clipsToBounds = true
 
@@ -47,7 +47,7 @@ class PhotosTableViewCell: UITableViewCell {
     let photo3ImageView: UIImageView = {
         let photo3 = UIImageView()
         photo3.translatesAutoresizingMaskIntoConstraints = false
-        photo3.image = UIImage(named: "Photo3")
+        photo3.image = UIImage(named: "03")
         photo3.layer.cornerRadius = 6
         photo3.clipsToBounds = true
 
@@ -57,21 +57,11 @@ class PhotosTableViewCell: UITableViewCell {
     let photo4ImageView: UIImageView = {
         let photo4 = UIImageView()
         photo4.translatesAutoresizingMaskIntoConstraints = false
-        photo4.image = UIImage(named: "Photo4")
+        photo4.image = UIImage(named: "04")
         photo4.layer.cornerRadius = 6
         photo4.clipsToBounds = true
 
         return photo4
-    }()
-
-    let photo5ImageView: UIImageView = {
-        let photo5 = UIImageView()
-        photo5.translatesAutoresizingMaskIntoConstraints = false
-        photo5.image = UIImage(named: "Photo5")
-        photo5.layer.cornerRadius = 6
-        photo5.clipsToBounds = true
-
-        return photo5
     }()
 
     let stackView: UIStackView = {
@@ -85,23 +75,22 @@ class PhotosTableViewCell: UITableViewCell {
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        layout()
+        setupConstraints()
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func layout() {
+    private func setupConstraints() {
         addSubview(photosLabel)
         addSubview(arrowImageView)
         addSubview(stackView)
-        [photo1ImageView, photo2ImageView, photo3ImageView, photo4ImageView, photo5ImageView].forEach {
+        [photo1ImageView, photo2ImageView, photo3ImageView, photo4ImageView].forEach {
             stackView.addArrangedSubview($0)
         }
 
         NSLayoutConstraint.activate([
-
             photosLabel.topAnchor.constraint(equalTo: topAnchor, constant: 12),
             photosLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 12),
 
@@ -123,10 +112,7 @@ class PhotosTableViewCell: UITableViewCell {
             photo3ImageView.heightAnchor.constraint(equalTo: photo1ImageView.heightAnchor),
 
             photo4ImageView.widthAnchor.constraint(equalTo: photo1ImageView.widthAnchor),
-            photo4ImageView.heightAnchor.constraint(equalTo: photo1ImageView.heightAnchor),
-
-            photo5ImageView.widthAnchor.constraint(equalTo: photo1ImageView.widthAnchor),
-            photo5ImageView.heightAnchor.constraint(equalTo: photo1ImageView.heightAnchor)
+            photo4ImageView.heightAnchor.constraint(equalTo: photo1ImageView.heightAnchor)
         ])
     }
 
