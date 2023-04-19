@@ -2,6 +2,8 @@ import UIKit
 
 class ProfileHeaderView: UIView {
 
+    weak var delegate: ProfileHeaderDelegate?
+
     private let avatarImageView: UIImageView = {
         let avatarImage = UIImageView()
         avatarImage.translatesAutoresizingMaskIntoConstraints = false
@@ -9,6 +11,9 @@ class ProfileHeaderView: UIView {
         avatarImage.layer.borderWidth = 3.0
         avatarImage.layer.borderColor = UIColor.white.cgColor
         avatarImage.layer.cornerRadius = 75
+        avatarImage.isUserInteractionEnabled = true
+        avatarImage.contentMode = .scaleToFill
+        avatarImage.clipsToBounds = true
 
         return avatarImage
         }()
@@ -67,6 +72,7 @@ class ProfileHeaderView: UIView {
         super.init(frame: frame)
         setupUI()
         setupConstraints()
+        setupGesture()
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -79,6 +85,15 @@ class ProfileHeaderView: UIView {
          addSubview(statusLabel)
          addSubview(setStatusButton)
          addSubview(statusTextField)
+    }
+
+    private func setupGesture() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapAction))
+        avatarImageView.addGestureRecognizer(tapGesture)
+    }
+
+    @objc private func tapAction() {
+        delegate?.didTapImage(avatarImageView.image!, imageRect: avatarImageView.frame)
     }
 
     private func setupConstraints() {
@@ -118,4 +133,9 @@ class ProfileHeaderView: UIView {
         statusTextField.text = ""
     }
 
+}
+
+
+protocol ProfileHeaderDelegate: AnyObject {
+    func didTapImage(_ image: UIImage, imageRect: CGRect)
 }
