@@ -3,26 +3,45 @@ import UIKit
 
 class PhotosViewController: UIViewController {
 
-    private let images = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"]
+    private enum Constants {
+        static let numberOfItemsInLine: CGFloat = 3
+    }
+
+    private lazy var layout: UICollectionViewFlowLayout = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+        layout.minimumLineSpacing = 8
+        layout.minimumInteritemSpacing = 8
+        layout.sectionInset = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
+
+        return layout
+    }()
 
     private lazy var collectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.dataSource = self
         collectionView.delegate = self
-        collectionView.register(PhotosCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: PhotosCollectionViewCell.self))
+        collectionView.register(PhotosCollectionViewCell.self, forCellWithReuseIdentifier: "customCell")
+        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "defaultID")
+
         return collectionView
     }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+
         setupConstraints()
+        setupUI()
     }
 
-    func setupConstraints() {
+    private func setupUI() {
         view.addSubview(collectionView)
+    }
+
+    private func setupConstraints() {
+
         NSLayoutConstraint.activate([
             collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -32,34 +51,32 @@ class PhotosViewController: UIViewController {
     }
 }
 
-extension PhotosViewController: UICollectionViewDataSource {
+extension PhotosViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        20
+        photoGallery.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: PhotosCollectionViewCell.self), for: indexPath) as! PhotosCollectionViewCell
-        cell.image.image = UIImage(named: images[indexPath.item])
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "customCell", for: indexPath) as? PhotosCollectionViewCell else {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "defaultID", for: indexPath)
+
+            return cell
+        }
+
+        cell.setup(with: photoGallery[indexPath.row])
+
         return cell
     }
-}
 
-extension PhotosViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = (collectionView.bounds.width - 8 * 4 ) / 3
-        return CGSize(width: width, height: width)
-    }
 
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 8
-    }
+        let insert = (collectionView.collectionViewLayout as? UICollectionViewFlowLayout)?.sectionInset ?? .zero
+        let interItemSpacing = (collectionView.collectionViewLayout as? UICollectionViewFlowLayout)?.minimumInteritemSpacing ?? 0
 
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        UIEdgeInsets(top: 8, left: 8, bottom: .zero, right: 8)
-    }
+        let wight = collectionView.frame.width - (Constants.numberOfItemsInLine - 1) * interItemSpacing - insert.left - insert.right
+        let itemWight = floor(wight / Constants.numberOfItemsInLine)
 
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        8
+        return CGSize(width: itemWight, height: itemWight)
     }
 }
-

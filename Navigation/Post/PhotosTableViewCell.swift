@@ -5,6 +5,13 @@ class PhotosTableViewCell: UITableViewCell {
 
     private let imagesSize = (UIScreen.main.bounds.width - 48) / 4
 
+    struct ViewModel {
+        var imageOne: UIImage?
+        var imageTwo: UIImage?
+        var imageThree: UIImage?
+        var imageFour: UIImage?
+    }
+
     let photosLabel: UILabel = {
         let photos = UILabel()
         photos.translatesAutoresizingMaskIntoConstraints = false
@@ -27,7 +34,6 @@ class PhotosTableViewCell: UITableViewCell {
     let photo1ImageView: UIImageView = {
         let photo1 = UIImageView()
         photo1.translatesAutoresizingMaskIntoConstraints = false
-        photo1.image = UIImage(named: "01")
         photo1.layer.cornerRadius = 6
         photo1.clipsToBounds = true
 
@@ -37,7 +43,6 @@ class PhotosTableViewCell: UITableViewCell {
     let photo2ImageView: UIImageView = {
         let photo2 = UIImageView()
         photo2.translatesAutoresizingMaskIntoConstraints = false
-        photo2.image = UIImage(named: "02")
         photo2.layer.cornerRadius = 6
         photo2.clipsToBounds = true
 
@@ -47,7 +52,6 @@ class PhotosTableViewCell: UITableViewCell {
     let photo3ImageView: UIImageView = {
         let photo3 = UIImageView()
         photo3.translatesAutoresizingMaskIntoConstraints = false
-        photo3.image = UIImage(named: "03")
         photo3.layer.cornerRadius = 6
         photo3.clipsToBounds = true
 
@@ -57,7 +61,6 @@ class PhotosTableViewCell: UITableViewCell {
     let photo4ImageView: UIImageView = {
         let photo4 = UIImageView()
         photo4.translatesAutoresizingMaskIntoConstraints = false
-        photo4.image = UIImage(named: "04")
         photo4.layer.cornerRadius = 6
         photo4.clipsToBounds = true
 
@@ -75,11 +78,19 @@ class PhotosTableViewCell: UITableViewCell {
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
         setupConstraints()
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    func setup(with viewModel: ViewModel){
+        photo1ImageView.image = viewModel.imageOne
+        photo2ImageView.image = viewModel.imageTwo
+        photo3ImageView.image = viewModel.imageThree
+        photo4ImageView.image = viewModel.imageFour
     }
 
     private func setupConstraints() {
