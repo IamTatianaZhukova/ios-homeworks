@@ -53,7 +53,7 @@ class PostTableViewCell: UITableViewCell {
        override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
            super.init(style: style, reuseIdentifier: reuseIdentifier)
 
-           addSubviews()
+           setupUI()
            setupConstraints()
        }
 
@@ -61,7 +61,7 @@ class PostTableViewCell: UITableViewCell {
            fatalError("init(coder:) has not been implemented")
        }
 
-       private func addSubviews() {
+       private func setupUI() {
            contentView.addSubview(authorLabel)
            contentView.addSubview(coverImageView)
            contentView.addSubview(descriptionLabel)
