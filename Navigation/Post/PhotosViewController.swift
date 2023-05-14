@@ -1,11 +1,15 @@
 
 import UIKit
+import iOSIntPackage
 
 class PhotosViewController: UIViewController {
 
     private enum Constants {
         static let numberOfItemsInLine: CGFloat = 3
     }
+
+    private var imagesSet = [UIImage]()
+    private var imageProcessor = ImageProcessor()
 
     private lazy var layout: UICollectionViewFlowLayout = {
         let layout = UICollectionViewFlowLayout()
@@ -34,6 +38,8 @@ class PhotosViewController: UIViewController {
 
         setupConstraints()
         setupUI()
+
+
     }
 
     private func setupUI() {

@@ -32,5 +32,6 @@ var photoGallery: [ProfilePhotos] = [
     ProfilePhotos(photo: UIImage(named: "18")),
     ProfilePhotos(photo: UIImage(named: "19")),
     ProfilePhotos(photo: UIImage(named: "20"))
-    ]
+]
 
+let imageArray = (1...20).compactMap({UIImage(named: "photo_\($0)")})
