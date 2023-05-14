@@ -93,35 +93,41 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
         addSubview(viewTextStatus)
         addSubview(statusTextField)
 
-        NSLayoutConstraint.activate([
+        avatarImageView.snp.makeConstraints { make in
+            make.width.equalTo(150)
+            make.height.equalTo(150)
+            make.top.equalToSuperview().inset(16)
+            make.left.equalToSuperview().inset(16)
+        }
 
-            avatarImageView.widthAnchor.constraint(equalToConstant: 150),
-            avatarImageView.heightAnchor.constraint(equalToConstant: 150),
-            avatarImageView.topAnchor.constraint(equalTo: topAnchor, constant: 16),
-            avatarImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+        fullNameLabel.snp.makeConstraints { make in
+            make.left.equalTo(avatarImageView.snp.right).offset(14)
+            make.top.equalToSuperview().inset(27)
+        }
 
-            fullNameLabel.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 14),
-            fullNameLabel.topAnchor.constraint(equalTo: topAnchor, constant: 27),
+        statusLabel.snp.makeConstraints { make in
+            make.left.equalTo(avatarImageView.snp.right).offset(14)
+            make.top.equalTo(fullNameLabel.snp.bottom).offset(20)
+        }
 
-            statusLabel.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 14),
-            statusLabel.topAnchor.constraint(equalTo: fullNameLabel.bottomAnchor, constant: 20),
+        viewTextStatus.snp.makeConstraints { make in
+            make.left.equalTo(avatarImageView.snp.right).offset(14)
+            make.right.equalToSuperview().inset(16)
+            make.top.equalTo(fullNameLabel.snp.bottom).offset(50)
+            make.height.equalTo(40)
+        }
 
-            viewTextStatus.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 14),
-            viewTextStatus.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            viewTextStatus.topAnchor.constraint(equalTo: fullNameLabel.bottomAnchor, constant: 50),
-            viewTextStatus.heightAnchor.constraint(equalToConstant: 40),
+        statusTextField.snp.makeConstraints { make in
+            make.left.right.equalTo(viewTextStatus).inset(10)
+            make.top.bottom.equalTo(viewTextStatus).inset(5)
+        }
 
-            statusTextField.leadingAnchor.constraint(equalTo: viewTextStatus.leadingAnchor, constant: 10),
-            statusTextField.trailingAnchor.constraint(equalTo: viewTextStatus.trailingAnchor, constant: -10),
-            statusTextField.topAnchor.constraint(equalTo: viewTextStatus.topAnchor, constant: 5),
-            statusTextField.bottomAnchor.constraint(equalTo: viewTextStatus.bottomAnchor, constant: -5),
-
-            setStatusButton.topAnchor.constraint(equalTo: viewTextStatus.bottomAnchor, constant: 45),
-            setStatusButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            setStatusButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            setStatusButton.heightAnchor.constraint(equalToConstant: 50),
-            setStatusButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16),
-        ])
+        setStatusButton.snp.makeConstraints { make in
+            make.top.equalTo(viewTextStatus.snp.bottom).offset(35)
+            make.left.right.equalToSuperview().inset(16)
+            make.height.equalTo(50)
+            make.bottom.equalToSuperview().inset(16)
+        }
     }
 
     private func addTarget () {
